@@ -686,7 +686,7 @@ export default {
     },
     renderSequence (index) {
       return this.tablePagination
-        ? this.tablePagination.from + index
+        ? (this.currentPage > 1 ? (this.tablePagination.from + parseInt(index)) : (parseInt(index) + 1))
         : index
     },
     renderNormalField (field, item) {
@@ -1072,7 +1072,7 @@ export default {
         }
 
       // count how many checkbox row in the current page has been checked
-      let selected = this.tableData.filter(function(item) {
+      let selected = _.filter(this.tableData, function(item) {
         return self.selectedTo.indexOf(item[idColumn]) >= 0
       })
 
@@ -1270,7 +1270,34 @@ export default {
       this.tableData = null
       this.tablePagination = null
       this.fireEvent('data-reset')
+    },
+
+    /*
+     * gearsoft.gr - update table row
+     */
+    updateRowData (rowId, rowData) {
+        let idColumn = this.trackBy;
+
+        var found = _.filter(this.tableData, function(tableRow) {
+            return tableRow[idColumn] == rowId;
+        });
+
+        if (found === undefined) {
+            return;
+        }
+
+        var newTableData = _.mapValues(this.tableData, (tableRow) => {
+            if (_.get(tableRow, idColumn, null) == rowId) {
+                _.forIn(tableRow, (value, property) => {
+                    tableRow[property] = rowData[property];
+                });
+            }
+            return tableRow;
+        });
+
+        this.tableData = newTableData;
     }
+
   }, // end: methods
   watch: {
     'multiSort' (newVal, oldVal) {

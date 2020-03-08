@@ -5,6 +5,8 @@ import VuetablePaginationDropdown from './components/VuetablePaginationDropdown.
 import VuetablePaginationInfo from './components/VuetablePaginationInfo.vue'
 import axios from 'axios'
 
+var _ = require('lodash');
+
 let E_SERVER_ERROR = 'Error communicating with the server'
 
 Vue.component('custom-actions', {
@@ -327,6 +329,13 @@ let vm = new Vue({
         }
       }).modal('show')
     },
+
+      //updates row in vuetable
+      updateRow (rowId) {
+          var rowData = {"id":77,"name":"Liakos Fournaridis","nickname":"eligendi","email":"elias@gearsoft.gr","birthdate":"1990-05-18 00:00:00","gender":"M","salary":"30047.00","group_id":1,"created_at":"2017-01-01 07:21:10","updated_at":"2017-01-01 07:21:10","age":29,"group":{"id":1,"name":"Admin","description":"Administrators"},"address":{"id":77,"user_id":77,"line1":"932 Nitzsche Station\\nEast Jany, NH 43570","line2":"Reunion","zipcode":"33860","mobile":"(114)536-4258x508","fax":"819.825.4125"}};
+          this.$refs.vuetable.updateRowData(rowId, rowData);
+      },
+
     showLoader () {
       this.loading = 'loading'
     },
