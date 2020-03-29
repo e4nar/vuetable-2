@@ -479,16 +479,17 @@ export default {
   },
   data () {
     return {
-      eventPrefix: 'vuetable:',
-      tableFields: [],
-      tableData: null,
-      tablePagination: null,
-      currentPage: this.initialPage,
-      selectedTo: [],
-      visibleDetailRows: [],
-      lastScrollPosition: 0,
-      scrollBarWidth: '17px', //chrome default
-      scrollVisible: false,
+        eventPrefix: 'vuetable:',
+        tableFields: [],
+        tableData: null,
+        tablePagination: null,
+        currentPage: this.initialPage,
+        selectedTo: [],
+        visibleDetailRows: [],
+        lastScrollPosition: 0,
+        scrollBarWidth: '17px', //chrome default
+        scrollVisible: false,
+        forcedAppendParams: {},
     }
   },
   mounted () {
@@ -565,6 +566,12 @@ export default {
     },
     isFixedHeader () {
       return this.tableHeight != null
+    },
+    finalAppendParams () {
+        if (!_.isEmpty(this.forcedAppendParams)) {
+            return this.forcedAppendParams;
+        }
+        return this.appendParams;
     }
   },
   methods: {
@@ -837,14 +844,14 @@ export default {
       }
       return result;
     },
-    setAppendParams (params) {
-      this.appendParams = params;
+    setForcedAppendParams (params) {
+      this.forcedAppendParams = params;
     },
     getAppendParams (params) {
         console.debug('vuetable appendParams:');
-        console.debug(this.appendParams);
+        console.debug(this.finalAppendParams);
         
-      for (let x in this.appendParams) {
+      for (let x in this.finalAppendParams) {
         params[x] = this.appendParams[x]
       }
 
