@@ -837,6 +837,9 @@ export default {
       }
       return result;
     },
+    setAppendParams (params) {
+      this.appendParams = params;
+    },
     getAppendParams (params) {
         console.debug('vuetable appendParams:');
         console.debug(this.appendParams);
