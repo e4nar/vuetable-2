@@ -838,6 +838,9 @@ export default {
       return result;
     },
     getAppendParams (params) {
+        console.debug('vuetable appendParams:');
+        console.debug(this.appendParams);
+        
       for (let x in this.appendParams) {
         params[x] = this.appendParams[x]
       }
