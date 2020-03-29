@@ -852,7 +852,7 @@ export default {
         console.debug(this.finalAppendParams);
         
       for (let x in this.finalAppendParams) {
-        params[x] = this.appendParams[x]
+        params[x] = this.finalAppendParams[x]
       }
 
       return params
