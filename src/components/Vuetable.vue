@@ -776,7 +776,7 @@ export default {
       }
     },
     loadFailed (response) {
-      console.error('load-error', response)
+      //console.error('load-error', response)
       this.fireEvent('load-error', response)
       this.fireEvent('loaded')
     },
@@ -848,9 +848,6 @@ export default {
       this.forcedAppendParams = params;
     },
     getAppendParams (params) {
-        console.debug('vuetable appendParams:');
-        console.debug(this.finalAppendParams);
-        
       for (let x in this.finalAppendParams) {
         params[x] = this.finalAppendParams[x]
       }
